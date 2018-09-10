@@ -1,5 +1,4 @@
-{% set version = '1.0-8' %}
-
+{% set version = '1.0-9' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +9,12 @@ package:
 source:
   fn: TH.data_{{ version }}.tar.gz
   url:
-    - https://cran.r-project.org/src/contrib/TH.data_{{ version }}.tar.gz
-    - https://cran.r-project.org/src/contrib/Archive/TH.data/TH.data_{{ version }}.tar.gz
-  sha256: 478f109fcc1226500ead8e3bd6e047cecde2294fde4df8ec216d38313db79a9d
+    - {{ cran_mirror }}/src/contrib/TH.data_{{ version }}.tar.gz
+    - {{ cran_mirror }}/src/contrib/Archive/TH.data/TH.data_{{ version }}.tar.gz
+  sha256: d8318a172ce2b9f7f284dc297c8a8d5093de8eccbb566c8e7580e70938dfae0f
 
 build:
+  merge_build_host: True  # [win]
   number: 0
   skip: true  # [win32]
   rpaths:
@@ -23,6 +23,8 @@ build:
 
 requirements:
   build:
+    - {{posix}}zip               # [win]
+  host:
     - r-base
     - r-mass
     - r-survival
@@ -33,7 +35,7 @@ requirements:
 
 test:
   commands:
-    - $R -e "library('TH.data')"  # [not win]
+    - $R -e "library('TH.data')"           # [not win]
     - "\"%R%\" -e \"library('TH.data')\""  # [win]
 
 about:
@@ -41,8 +43,14 @@ about:
   license: GPL-3
   summary: Contains data sets used in other packages Torsten Hothorn maintains.
   license_family: GPL3
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
+  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
 
 extra:
   recipe-maintainers:
     - johanneskoester
     - bgruening
+    - daler
+    - jdblischak
+    - cbrueffer
+    - dbast
