@@ -1,4 +1,4 @@
-{% set version = '1.0-9' %}
+{% set version = '1.0-10' %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -7,16 +7,15 @@ package:
   version: {{ version|replace("-", "_") }}
 
 source:
-  fn: TH.data_{{ version }}.tar.gz
   url:
     - {{ cran_mirror }}/src/contrib/TH.data_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/TH.data/TH.data_{{ version }}.tar.gz
-  sha256: d8318a172ce2b9f7f284dc297c8a8d5093de8eccbb566c8e7580e70938dfae0f
+  sha256: 618a1c67a30536d54b1e48ba3af46a6edcd6c2abef17935b5d4ba526a43aff55
 
 build:
-  noarch: generic
   merge_build_host: True  # [win]
-  number: 1000
+  number: 0
+  noarch: generic
   rpaths:
     - lib/R/lib/
     - lib/
@@ -43,14 +42,25 @@ about:
   license: GPL-3
   summary: Contains data sets used in other packages Torsten Hothorn maintains.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'  # [unix]
-  license_file: '{{ environ["PREFIX"] }}\R\share\licenses\GPL-3'  # [win]
+  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
 
 extra:
   recipe-maintainers:
-    - johanneskoester
-    - bgruening
-    - daler
-    - jdblischak
-    - cbrueffer
-    - dbast
+    - conda-forge/r
+
+# Package: TH.data
+# Title: TH's Data Archive
+# Date: 2019-01-22
+# Version: 1.0-10
+# Authors@R: c(person("Torsten", "Hothorn", role = c("aut", "cre"), email = "Torsten.Hothorn@R-project.org"))
+# Description: Contains data sets used in other packages Torsten Hothorn maintains.
+# Depends: R (>= 2.10.0), survival, MASS
+# Suggests: dplyr, gdata, plyr
+# LazyData: yes
+# License: GPL-3
+# NeedsCompilation: no
+# Packaged: 2019-01-21 10:36:50 UTC; hothorn
+# Author: Torsten Hothorn [aut, cre]
+# Maintainer: Torsten Hothorn <Torsten.Hothorn@R-project.org>
+# Repository: CRAN
+# Date/Publication: 2019-01-21 11:10:03 UTC
