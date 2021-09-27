@@ -1,4 +1,4 @@
-{% set version = '1.0-10' %}
+{% set version = "1.1-0" %}
 {% set posix = 'm2-' if win else '' %}
 {% set native = 'm2w64-' if win else '' %}
 
@@ -10,11 +10,11 @@ source:
   url:
     - {{ cran_mirror }}/src/contrib/TH.data_{{ version }}.tar.gz
     - {{ cran_mirror }}/src/contrib/Archive/TH.data/TH.data_{{ version }}.tar.gz
-  sha256: 618a1c67a30536d54b1e48ba3af46a6edcd6c2abef17935b5d4ba526a43aff55
+  sha256: 21b37e251da5635ae91668f64b4c6f6a7ccedbe1f01af769d30fb532af83113e
 
 build:
-  merge_build_host: True  # [win]
-  number: 2
+  merge_build_host: true  # [win]
+  number: 0
   noarch: generic
   rpaths:
     - lib/R/lib/
@@ -42,7 +42,7 @@ about:
   license: GPL-3
   summary: Contains data sets used in other packages Torsten Hothorn maintains.
   license_family: GPL3
-  license_file: '{{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3'
+  license_file: {{ environ["PREFIX"] }}/lib/R/share/licenses/GPL-3
 
 extra:
   recipe-maintainers:
